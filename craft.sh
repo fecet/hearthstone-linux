@@ -145,11 +145,12 @@ download_unity() {
     pushd tmp
 
     info "Fetching Unity archive ..."
-    curl -s https://unity.com/releases/editor/archive -o archive || (error "Could not fetch Unity archive" && exit 1)
-
-    EXP="(?<=$UNITY_VER/)[^\\\]*"
-    HASH=`grep -oP $EXP archive` || (error "Unity version not found in archive" && exit 1)
-    URL="https://download.unity3d.com/download_unity/${HASH%%$'\n'*}/LinuxEditorInstaller/Unity.tar.xz"
+    # curl -s https://unity.com/releases/editor/archive -o archive || (error "Could not fetch Unity archive" && exit 1)
+    #
+    # EXP="(?<=$UNITY_VER/)[^\\\]*"
+    # HASH=`grep -oP $EXP archive` || (error "Unity version not found in archive" && exit 1)
+    # URL="https://download.unity3d.com/download_unity/${HASH%%$'\n'*}/LinuxEditorInstaller/Unity.tar.xz"
+    URL=https://download.unity3d.com/download_unity/6fcab7dbbbc1/LinuxEditorInstaller/Unity-2021.3.40f1.tar.xz
 
     info "Downloading Unity from $URL ..."
     curl $URL -o Unity.tar.xz || (error "Could not download Unity" && exit 1)
@@ -255,4 +256,4 @@ StartupWMClass=Hearthstone.x86_64
 EOF
 
 info "Done."
-[ -f "$TARGET_PATH/token" ] || (warn "Please create your login token before launching the game!" && $TARGET_PATH/login)
+[ -f "$TARGET_PATH/token" ] || (warn "Please create your login token before launching the game!" && "$TARGET_PATH/login")
